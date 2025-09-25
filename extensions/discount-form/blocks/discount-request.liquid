@@ -1,0 +1,118 @@
+<div class="discount-request-form">
+  <h2>Request a Discount</h2>
+  <p>
+    Fill in the form below to request a discount on your selected product.
+  </p>
+
+  <form method="post" action="https://visible-recommendation-incoming-velvet.trycloudflare.com/api/discount-request">
+    <!-- Product Name -->
+    <div class="form-group">
+      <label for="product">Product Name</label>
+      <input type="text" id="product" name="product" required>
+    </div>
+
+    <!-- Qty + Price same row -->
+    <div class="form-row">
+      <div class="form-group">
+        <label for="quantity">Quantity</label>
+        <input type="number" id="quantity" name="quantity" required>
+      </div>
+      <div class="form-group">
+        <label for="price">Price</label>
+        <input type="text" id="price" name="price" required>
+      </div>
+    </div>
+
+    <!-- Comments -->
+    <div class="form-group">
+      <label for="comments">Comments</label>
+      <textarea id="comments" name="comments" rows="4"></textarea>
+    </div>
+
+    <!-- Submit -->
+    <button type="submit" class="discount-submit">
+      Submit Request
+    </button>
+  </form>
+</div>
+
+<script>
+fetch('https://visible-recommendation-incoming-velvet.trycloudflare.com/app/form-info')
+  .then(res => res.json())
+  .then(settings => {
+    document.querySelector('.discount-request-form h2').textContent =
+      settings.name || 'Request a Discount 1';
+    document.querySelector('.discount-request-form p').textContent =
+      settings.description || 'Fill in the form below to request a discount. 1';
+  });
+</script>
+
+<style>
+.discount-request-form {
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  max-width: 500px;
+  margin: 20px auto;
+  font-family: inherit;
+}
+
+.discount-request-form h2 {
+  margin-bottom: 8px;
+  color: #333;
+}
+
+.discount-request-form p {
+  margin-bottom: 20px;
+  color: #666;
+}
+
+.discount-request-form .form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+}
+
+.discount-request-form label {
+  font-size: 14px;
+  margin-bottom: 5px;
+  color: #444;
+}
+
+.discount-request-form input,
+.discount-request-form textarea {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  width: 100%;
+  font-size: 14px;
+}
+
+.discount-request-form .form-row {
+  display: flex;
+  gap: 10px;
+}
+
+.discount-request-form .discount-submit {
+  background: #0070f3;
+  color: #fff;
+  font-weight: 600;
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.discount-request-form .discount-submit:hover {
+  background: #005bb5;
+}
+</style>
+
+{% schema %}
+{
+  "name": "Discount Request Form",
+  "target": "section",
+  "settings": []
+}
+{% endschema %}
