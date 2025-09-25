@@ -4,7 +4,7 @@
     Fill in the form below to request a discount on your selected product.
   </p>
 
-  <form method="post" action="https://visible-recommendation-incoming-velvet.trycloudflare.com/api/discount-request">
+  <form id="discountForm">
     <!-- Product Name -->
     <div class="form-group">
       <label for="product">Product Name</label>
@@ -33,19 +33,66 @@
     <button type="submit" class="discount-submit">
       Submit Request
     </button>
+
+     <div id="toast" style="
+    display:none;
+    position:fixed;
+    bottom:20px;
+    left:50%;
+    transform:translateX(-50%);
+    background:#4caf50;
+    color:white;
+    padding:12px 20px;
+    border-radius:6px;
+    box-shadow:0 2px 6px rgba(0,0,0,0.2);
+    font-family:sans-serif;
+  ">
+    Discount request submitted!
+  </div>
   </form>
 </div>
 
 <script>
-fetch('https://visible-recommendation-incoming-velvet.trycloudflare.com/app/form-info')
-  .then(res => res.json())
-  .then(settings => {
-    document.querySelector('.discount-request-form h2').textContent =
-      settings.name || 'Request a Discount 1';
-    document.querySelector('.discount-request-form p').textContent =
-      settings.description || 'Fill in the form below to request a discount. 1';
-  });
+document.getElementById("discountForm").addEventListener("submit", async function(e) {
+  e.preventDefault();
+
+  const form = e.target;
+  const data = {
+    product: form.product.value,
+    quantity: form.quantity.value,
+    price: form.price.value,
+    comments: form.comments.value
+  };
+
+  try {
+    const res = await fetch("/apps/discount-request", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data)
+    });
+
+    if (res.ok) {
+      // Show toast
+      const toast = document.getElementById("toast");
+      toast.style.display = "block";
+
+      // Hide after 3 seconds
+      setTimeout(() => {
+        toast.style.display = "none";
+      }, 3000);
+
+      // Reset form
+      form.reset();
+    } else {
+      alert("Failed to submit request");
+    }
+  } catch (err) {
+    alert("Error submitting request");
+    console.error(err);
+  }
+});
 </script>
+
 
 <style>
 .discount-request-form {

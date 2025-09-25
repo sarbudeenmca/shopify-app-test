@@ -30,3 +30,10 @@ redirect_urls = ["https://visible-recommendation-incoming-velvet.trycloudflare.c
 
 [pos]
 embedded = false
+
+[app_proxy]
+url = "https://visible-recommendation-incoming-velvet.trycloudflare.com/api/discount-request"
+subpath = "discount-request"
+prefix = "apps"
+method = "POST"
+active = true
