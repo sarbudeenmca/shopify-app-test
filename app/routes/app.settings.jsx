@@ -17,20 +17,33 @@ import { TitleBar } from "@shopify/app-bridge-react";
 import { useState } from "react";
 import { json } from "@remix-run/node";
 import { useLoaderData, Form } from "@remix-run/react";
+import  prisma from "../db.server";
 
 export async function loader() {
-  // provides data to the component
-  let settings = {
-    name: "Discount App",
-    description: "Discount Request form",
-  };
-
+  const settings = await prisma.settings.findFirst();
   return json(settings);
 }
 
 export async function action({ request }) {
   let settings = await request.formData();
   settings = Object.fromEntries(settings);
+
+   await prisma.settings.upsert({
+    where:{
+      id: '1'
+    },
+    update:{
+      id: '1',
+      name: settings.name,
+      description: settings.description,
+    },
+    create:{
+      id: '1',
+      name: settings.name,
+      description: settings.description,
+    }
+  });
+
   return json(settings);
 }
 
@@ -63,7 +76,7 @@ export default function SettingsPage() {
                 <TextField
                   label="Form Title"
                   name="name"
-                  value={formState.name}
+                  value={formState?.name}
                   onChange={(value) =>
                     setFormState({ ...formState, name: value })
                   }
@@ -71,7 +84,7 @@ export default function SettingsPage() {
                 <TextField
                   label="Description"
                   name="description"
-                  value={formState.description}
+                  value={formState?.description}
                   onChange={(value) =>
                     setFormState({ ...formState, description: value })
                   }
