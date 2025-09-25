@@ -2,7 +2,7 @@
 
 client_id = "f65aead5a0ab1ede7307a55ac80c2610"
 name = "Discount Request"
-application_url = "https://visible-recommendation-incoming-velvet.trycloudflare.com"
+application_url = "https://ferrari-manhattan-destiny-words.trycloudflare.com"
 embedded = true
 handle = "discount-request-1"
 
@@ -26,13 +26,13 @@ api_version = "2025-07"
 scopes = "write_products"
 
 [auth]
-redirect_urls = ["https://visible-recommendation-incoming-velvet.trycloudflare.com/auth/callback", "https://visible-recommendation-incoming-velvet.trycloudflare.com/auth/shopify/callback", "https://visible-recommendation-incoming-velvet.trycloudflare.com/api/auth/callback"]
+redirect_urls = ["https://ferrari-manhattan-destiny-words.trycloudflare.com/auth/callback", "https://ferrari-manhattan-destiny-words.trycloudflare.com/auth/shopify/callback", "https://ferrari-manhattan-destiny-words.trycloudflare.com/api/auth/callback"]
 
 [pos]
 embedded = false
 
 [app_proxy]
-url = "https://visible-recommendation-incoming-velvet.trycloudflare.com/api/discount-request"
+url = "https://ferrari-manhattan-destiny-words.trycloudflare.com/api/discount-request"
 subpath = "discount-request"
 prefix = "apps"
 method = "POST"
