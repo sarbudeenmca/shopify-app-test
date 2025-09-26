@@ -31,8 +31,12 @@ export async function action({ request }) {
 }
 
 export async function loader() {
-  return json({
-    ok: true,
-    message: "Send POST to save discount request",
+  const settings = await prisma.settings.findFirst();
+  return json(settings, {
+      headers: {
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "GET, OPTIONS",
+      "Access-Control-Allow-Headers": "Content-Type",
+    },
   });
 }

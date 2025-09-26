@@ -1,8 +1,6 @@
 <div class="discount-request-form">
-  <h2>Request a Discount</h2>
-  <p>
-    Fill in the form below to request a discount on your selected product.
-  </p>
+  <h2>Request Discount</h2>
+  <p>Fill in the form below to request a discount on your selected product.</p>
 
   <form id="discountForm">
     <!-- Product Name -->
@@ -93,6 +91,16 @@ document.getElementById("discountForm").addEventListener("submit", async functio
 });
 </script>
 
+<script>
+fetch('/apps/discount-request')
+  .then(res => res.json())
+  .then(settings => { 
+    document.querySelector('.discount-request-form h2').textContent =
+      settings.name || 'Request Product Discount';
+    document.querySelector('.discount-request-form p').textContent =
+      settings.description || 'Fill in the form below to request a discount on your selected product.';
+  });
+</script>
 
 <style>
 .discount-request-form {
